@@ -2,7 +2,6 @@ apt -y install nfs-kernel-server
 
 # write settings for NFS exports
 # for example, set [/home/nfsshare] as NFS share
-echo " 10.0.0.0/24(rw,sync,no_root_squash,no_all_squash)" >> /etc/exports
 
 mkdir /home/nfsshare
 systemctl restart nfs-server
