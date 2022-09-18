@@ -13,4 +13,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 #Make sure that required ports ( flannel 8285,8472 /udp ) are opened in Virtual cloud network of your cloud provider 
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
+# join for workernode
+echo $(kubeadm token create --print-join-command) "--cri-socket /run/cri-dockerd.sock" 
+
 
