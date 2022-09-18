@@ -18,7 +18,7 @@
 # kubernetes 6443,2379-2380,10250,10251,10252,30000-32767 tcp
 --------------
 # CNI
-#flannel 8285,8472 
+#flannel 8285,8472 udp
 #calico 179 udp
 #weave TCP 6783 and UDP 6783/6784
 --------------
