@@ -1,3 +1,4 @@
+#!/bin/bash
 ## save existing rules
 sudo iptables-save > ~/iptables-rules
 ## modify rules, remove drop and reject lines
