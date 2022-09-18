@@ -1,9 +1,10 @@
- ExternalIp=External ip
- sudo kubeadm init \
+ExternalIp=129.152.10.212
+
+sudo kubeadm init \
   --pod-network-cidr=10.244.0.0/16 \
   --cri-socket /run/cri-dockerd.sock  \
   --upload-certs \
-  --control-plane-endpoint=" YOUR EXTERNAL IP ? "
+  --control-plane-endpoint=$ExternalIp
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
