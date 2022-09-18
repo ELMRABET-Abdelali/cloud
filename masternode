@@ -1,4 +1,4 @@
- ExternalIp=$( ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -1)
+ ExternalIp=External ip
  sudo kubeadm init \
   --pod-network-cidr=10.244.0.0/16 \
   --cri-socket /run/cri-dockerd.sock  \
