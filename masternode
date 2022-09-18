@@ -1,0 +1,16 @@
+ ExternalIp=$( ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -1)
+ sudo kubeadm init \
+  --pod-network-cidr=10.244.0.0/16 \
+  --cri-socket /run/cri-dockerd.sock  \
+  --upload-certs \
+  --control-plane-endpoint=$ExternalIp	
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# in case of flannel --pod-network-cidr=10.244.0.0/16 in Flannel case 
+#Make sure that required ports ( flannel 8285,8472 /udp ) are opened in Virtual cloud network of your cloud provider 
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+
