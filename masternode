@@ -3,7 +3,7 @@
   --pod-network-cidr=10.244.0.0/16 \
   --cri-socket /run/cri-dockerd.sock  \
   --upload-certs \
-  --control-plane-endpoint=$ExternalIp	
+  --control-plane-endpoint=" YOUR EXTERNAL IP ? "
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
