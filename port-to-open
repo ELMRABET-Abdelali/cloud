@@ -1,0 +1,25 @@
+# Master
+6443/tcp # Kubernetes API server
+2379-2380/tcp # etcd server client API
+10250/tcp # Kubelet API
+10251/tcp # kube-scheduler
+10252/tcp # kube-controller-manager
+8285/udp # Flannel
+8472/udp # Flannel
+# only if you want NodePorts exposed on control plane IP as well
+30000-32767/tcp
+
+# Node
+10250/tcp
+8285/udp # Flannel
+8472/udp # Flannel
+30000-32767/tcp
+--------------
+# kubernetes 6443,2379-2380,10250,10251,10252,30000-32767 tcp
+--------------
+# CNI
+#flannel 8285,8472 
+#calico 179 udp
+#weave TCP 6783 and UDP 6783/6784
+--------------
+# http https rdp nfs 80,443,2049,3389 tcp
