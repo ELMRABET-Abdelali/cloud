@@ -1,4 +1,4 @@
-ExternalIp=129.152.10.212
+ExternalIp=129.152.20.47
 
 sudo kubeadm init \
   --pod-network-cidr=10.244.0.0/16 \
