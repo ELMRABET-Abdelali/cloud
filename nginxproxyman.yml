@@ -1,5 +1,12 @@
 # must have docker-compose installed already !
 # to install use: nginxproxyman up -d 
+#open port in oracle 80,81,443
+#http://Server_IP:81
+ #   USERNAME: admin@example.com
+ #   PASSWORD: changeme
+ # -- create cloudflare certificate for nginxpm
+ # -- rdp https://blog.51sec.org/2022/01/install-xrdp-with-ubuntu-desktop-on.html
+ 
 version: "3"
 services:
   app:
