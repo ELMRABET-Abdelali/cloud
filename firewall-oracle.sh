@@ -12,4 +12,5 @@ sudo iptables -L
 sudo netfilter-persistent save
 sudo systemctl restart iptables
 
+## https://blog.51sec.org/2022/01/install-xrdp-with-ubuntu-desktop-on.html
 
