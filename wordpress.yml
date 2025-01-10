@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  # Database
+  db:
+    image: mysql:5.7
+    volumes:
+      - /home/newgen/wordpress1/database:/config
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+    networks:
+      - wpnw
+
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin  # Use the x86_64 version for AMD
+    restart: always
+    ports:
+      - '3098:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - wpnw
+
+  # Wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - '8098:80'
+    restart: always
+    volumes:
+      - /home/newgen/wordpress1/files:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+    networks:
+      - wpnw
+
+networks:
+  wpnw:
+
+volumes:
+  database:
+  files:
