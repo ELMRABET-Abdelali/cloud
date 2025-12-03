@@ -1,8 +1,0 @@
-# 1. Télécharge le script dans un fichier nommé docker-install.sh
-curl -fsSL https://raw.githubusercontent.com/ELMRABET-Abdelali/cloud/main/docker/docker-install.sh -o docker-install.sh
-
-# 2. Rend le fichier exécutable
-chmod +x docker-install.sh
-
-# 3. Exécute le script
-./docker-install.sh
