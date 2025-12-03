@@ -11,4 +11,4 @@ Cette commande est la méthode la plus efficace pour automatiser l'installation.
 Copiez et collez la ligne ci-dessous dans votre terminal (nécessite les droits `sudo`):
 
 ```bash
-curl -fsSL [https://raw.githubusercontent.com/ELMRABET-Abdelali/cloud/main/docker/docker-install.sh](https://raw.githubusercontent.com/ELMRABET-Abdelali/cloud/main/docker/docker-install.sh) -o docker-install.sh && chmod +x docker-install.sh && ./docker-install.sh
+curl -fsSL https://raw.githubusercontent.com/ELMRABET-Abdelali/cloud/main/docker/docker-install.sh -o docker-install.sh && chmod +x docker-install.sh && ./docker-install.sh
