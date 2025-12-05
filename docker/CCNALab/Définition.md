@@ -21,6 +21,12 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
   - "VTY": lignes virtuelles pour accès à distance (Telnet/SSH). SSH est chiffré; Telnet ne l’est pas.
 - Ce qui se passe: L’équipement refuse les connexions non authentifiées; l’administrateur se connecte en SSH v2.
 
+Définitions (Chapitre 1):
+- Hostname: nom de l’équipement pour l’identifier.
+- Enable secret: mot de passe chiffré pour le mode privilégié.
+- AAA local: comptes utilisateurs et privilèges stockés localement.
+- Console/VTY: accès local/distant; on préfère SSH v2 (chiffré) et on évite Telnet.
+
 ---
 
 ## Chapitre 2 — VLANs, Trunks, EtherChannel
@@ -48,6 +54,14 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
 - Terme: "VTP domain" = nom du domaine de synchronisation (ex. JeremysITLab).
 - Ce qui se passe: Les clients reçoivent la table VLAN; on versionne pour éviter les suppressions accidentelles.
 
+Définitions (Chapitre 2):
+- VLAN: réseau logique L2 isolé par usage.
+- Trunk 802.1Q: lien taggé qui transporte plusieurs VLANs.
+- DTP nonegotiate: on désactive la négociation automatique pour configurer explicitement.
+- Native VLAN: VLAN non‑taggué sur le trunk (cohérent des deux côtés).
+- EtherChannel (PAgP/LACP): agrégat de liens pour redondance et débit.
+- VTP: synchronisation de la base VLAN (serveur → clients).
+
 ---
 
 ## Chapitre 3 — Adressage IP, EtherChannel L3, HSRP
@@ -66,6 +80,11 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
   - "Preempt": le routeur prioritaire reprend automatiquement le rôle Active quand il revient.
 - Ce qui se passe: Les hôtes utilisent l’IP virtuelle; bascule transparente lors de panne.
 
+Définitions (Chapitre 3):
+- SVI: interface L3 d’un VLAN (passerelle des hôtes).
+- Port‑Channel L3: agrégat en mode routé (pas de switchport) entre cœurs.
+- HSRP v2: passerelle redondante via IP virtuelle (VIP), Active/Standby, `preempt` pour reprise.
+
 ---
 
 ## Chapitre 4 — STP (Rapid PVST+) et sécurité de ports
@@ -77,6 +96,12 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
   - "PortFast": évite l’attente STP sur ports vers hôtes.
   - "BPDU Guard": désactive un port qui reçoit des BPDUs (protection contre switch non autorisé).
 - Ce qui se passe: Les ports d’accès montent vite; les boucles accidentelles sont interrompues.
+
+Définitions (Chapitre 4):
+- RSTP (Rapid PVST+): Spanning Tree rapide, évite les boucles L2.
+- PortFast: accélère l’activation des ports vers hôtes (pas d’attente STP).
+- BPDU Guard: coupe un port recevant des BPDUs inattendus.
+- Root STP: switch racine de référence; l’aligner avec HSRP pour chemins cohérents.
 
 2) Root primaire/secondaire aligné à HSRP
 - Pourquoi: Consistance L2/L3 en choisissant le même équipement actif.
@@ -98,6 +123,15 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
 - Pourquoi: Injecter la sortie Internet/wan vers le réseau.
 - Terme: "Floating static" = route statique de secours avec distance admin > 1.
 - Ce qui se passe: La route principale est préférée; la secondaire prend le relais si la première échoue.
+
+Définitions (Chapitre 5):
+- OSPF Area 0: backbone; les autres areas doivent y toucher.
+- Router‑ID (RID): identifiant OSPF (souvent Loopback).
+- Passive‑interface: annonce sans former de voisinage.
+- Network type p2p: pas d’élection DR/BDR, simplifie les liens.
+- Default‑information originate: propage la route par défaut.
+- ASBR: routeur qui injecte des routes externes.
+- Floating static: route statique de secours (distance admin > 1).
 
 ---
 
@@ -133,6 +167,15 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
 - Terme: "CDP": équivalent Cisco; parfois désactivé.
 - Ce qui se passe: Les devices s’annoncent; diagnostic facilité.
 
+Définitions (Chapitre 6):
+- DHCP: attribution automatique (IP/gateway/DNS). `ip helper‑address` relaye les requêtes.
+- DNS: résolution de noms; côté serveur (SRV1) et clients.
+- NTP: synchronisation de l’heure (R1 master, clients avec clé).
+- Syslog/SNMP: remontée d’événements et supervision (RO = lecture seule).
+- SSH durci: RSA/SSH v2 + ACL VTY; Telnet désactivé.
+- NAT/PAT: traduction d’adresses; PAT many:1 par ports; NAT statique 1:1; pool pour plages.
+- LLDP/CDP: découverte de voisins (LLDP standard, CDP Cisco).
+
 ---
 
 ## Chapitre 7 — ACL et protections L2
@@ -150,6 +193,14 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
   - "DAI": vérifie ARP avec table Snooping (src/dst MAC/IP).
 - Ce qui se passe: Un faux serveur DHCP est bloqué; les ARP malveillants sont rejetés.
 
+Définitions (Chapitre 7):
+- ACL étendue: filtrage par IP/protocoles; placer proche de la source.
+- ICMP (ping): tester la connectivité; peut être autorisé spécifiquement.
+- Port Security: lie MAC↔port; restrict+sticky pour sanction sans shutdown.
+- DHCP Snooping: table de baux, ports trusted/untrusted, rate‑limit.
+- DAI: vérifie ARP via Snooping (src/dst MAC/IP).
+- ARP spoofing: usurpation ARP pour détourner le trafic.
+
 ---
 
 ## Chapitre 8 — IPv6
@@ -161,6 +212,12 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
   - "EUI‑64": construit l’ID interface à partir de l’adresse MAC.
   - `ipv6 enable` sur Po1: crée link‑local et ND sans adresse globale.
 - Ce qui se passe: Les liens L3 parlent IPv6; les routes par défaut permettent la sortie.
+
+Définitions (Chapitre 8):
+- `ipv6 unicast‑routing`: active le routage IPv6.
+- EUI‑64: génère l’ID interface IPv6 depuis la MAC.
+- `ipv6 enable` sur Po1: link‑local et ND sans globale.
+- Route par défaut IPv6: principale (récursive) et secours (entièrement spécifiée).
 
 2) Routes par défaut
 - Pourquoi: Assurer la sortie principale et de secours.
@@ -185,6 +242,13 @@ Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, c
 - Pourquoi: Centraliser la gestion des APs.
 - Terme: "LWAP" = Lightweight AP; rejoint un contrôleur (WLC).
 - Ce qui se passe: Les APs se registrent; le WLC applique les politiques.
+
+Définitions (Chapitre 9):
+- WLC: contrôleur qui gère APs (LWAP) et WLANs.
+- Interface dynamique: interface L3 WLC liée à un VLAN (ex. VLAN 40).
+- WLAN/SSID: réseau Wi‑Fi publié; SSID = nom.
+- WPA2‑AES + PSK: sécurité (chiffrement + clé partagée).
+- LWAP: AP léger qui rejoint le WLC.
 
 ---
 
