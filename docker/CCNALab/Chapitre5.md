@@ -1,4 +1,4 @@
-# 🛣️ Lab jeremysitlab — Chapitre 5 : Routage Statique et Dynamique (OSPF)
+# Chapitre 5 : Routage Statique et Dynamique (OSPF)
 
 Ce chapitre active OSPF sur R1 (interfaces LAN) ainsi que sur tous les commutateurs Core et Distribution (interfaces de couche 3), puis configure les routes par défaut statiques vers Internet sur R1, avec redistribution (ASBR) de la route par défaut dans OSPF.
 
