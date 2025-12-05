@@ -1,4 +1,4 @@
-# 🧩 Lab jeremysitlab — Chapitre 6 : Services Réseau (DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT)
+# Chapitre 6 : Services Réseau (DHCP, DNS, NTP, SNMP, Syslog, FTP, SSH, NAT)
 
 Ce chapitre configure les services réseau essentiels sur `R1` et les commutateurs: DHCP (serveur sur R1), DNS (SRV1), NTP (R1 serveur + clients authentifiés), SNMP (lecture seule), Syslog, FTP upgrade d’IOS, SSH sécurisé, NAT statique et PAT avec pool, et enfin LLDP au lieu de CDP.
 
