@@ -26,8 +26,7 @@ Ce chapitre se fait dans l’interface graphique du WLC de Packet Tracer. On cr�
 - Name: `Wi-Fi`  
 - VLAN: `40`  
 - Port number: `1`  
-- IP address: `10.6.0.4`  
-  - Note: La vidéo mentionne `10.6.0.2` (erreur, conflit avec DSW‑A1).  
+- IP address: `10.6.0.4`    
 - Subnet mask: `255.255.255.0`  
 - Gateway: `10.6.0.1` (VIP HSRP VLAN 40)  
 - DHCP server: `10.0.0.76` (R1 Loopback)
