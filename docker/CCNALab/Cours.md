@@ -1,4 +1,4 @@
-# 🗺️ Mega Lab CCNA — Guide d’explications par chapitre
+# Mega Lab CCNA — Guide d’explications par chapitre
 
 Ce document accompagne les chapitres 1 à 9 et explique, pour chaque question, ce qui se passe dans le réseau, pourquoi on le configure ainsi, et définit les termes au fil de l’eau pour faciliter la compréhension. Il sert de fil conducteur pédagogique pour réviser et justifier chaque choix.
 
