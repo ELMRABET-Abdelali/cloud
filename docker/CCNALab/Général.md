@@ -1,6 +1,6 @@
 # Mega Lab CCNA — Explication générale
 
-Ce document raconte l’histoire complète du lab, chapitre par chapitre, avec des mots simples. Il explique pourquoi chaque étape existe, ce qui se passe dans le réseau, et définit les termes au fur et à mesure. Il s’appuie sur les chapitres et les images fournies.
+Ce document raconte l’histoire complète du lab, chapitre par chapitre, avec des mots simples. Il explique pourquoi chaque étape existe, ce qui se passe dans le réseau, et définit les termes au fur et à mesure.
 
 ---
 
