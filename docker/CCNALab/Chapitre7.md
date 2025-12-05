@@ -1,4 +1,4 @@
-# 🛡️ Lab jeremysitlab — Chapitre 7 : Sécurité (ACL et Fonctions de Sécurité de Couche 2)
+# Chapitre 7 : Sécurité (ACL et Fonctions de Sécurité de Couche 2)
 
 Ce chapitre met en place une ACL étendue entre les sous-réseaux PC des deux bureaux et déploie des protections L2 côté accès: Port Security, DHCP Snooping et Dynamic ARP Inspection (DAI).
 
