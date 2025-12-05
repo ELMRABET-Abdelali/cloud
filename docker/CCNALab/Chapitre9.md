@@ -1,4 +1,4 @@
-# 📶 Lab jeremysitlab — Chapitre 9 : Configuration du Réseau Sans Fil (WLC)
+# Chapitre 9 : Configuration du Réseau Sans Fil (WLC)
 
 Ce chapitre se fait dans l’interface graphique du WLC de Packet Tracer. On crée l’interface dynamique Wi‑Fi, le WLAN, la sécurité WPA2‑PSK, puis on vérifie l’association des LWAPs.
 
