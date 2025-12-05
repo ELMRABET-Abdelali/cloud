@@ -1,6 +1,6 @@
 # 🌐 Lab jeremysitlab — Chapitre 3 : Adressage IP, EtherChannel de Couche 3 et HSRP
 
-Ce chapitre traite de la configuration des adresses IP, de la création d’un EtherChannel L3 entre les commutateurs Core, et de la mise en place d’HSRPv2 pour la redondance des passerelles par VLAN. Les sections conservent la numérotation originale en anglais.
+Ce chapitre traite de la configuration des adresses IP, de la création d’un EtherChannel L3 entre les commutateurs Core, et de la mise en place d’HSRPv2 pour la redondance des passerelles par VLAN.
 
 ---
 
