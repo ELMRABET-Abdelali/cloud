@@ -1,4 +1,4 @@
-# 🧱 Lab jeremysitlab — Chapitre 2 : VLANs et EtherChannel (Couche 2)
+# Chapitre 2 : VLANs et EtherChannel (Couche 2)
 
 Ce chapitre couvre la création des EtherChannels en couche 2, la configuration des trunks (DTP, VLAN natif, listes VLAN), la mise en place de VTPv2 et la création des VLANs, puis l’affectation des ports d’accès et le lien WLC. Chaque question garde la numérotation d’origine en anglais et inclut objectifs, principes, tableau de commandes et blocs à copier selon les équipements.
 
