@@ -1,4 +1,4 @@
-# 📚 Lab jeremysitlab — Chapitre 1 : Configuration de Base et Accès Sécurisé
+# Chapitre 1 : Configuration de Base et Accès Sécurisé
 
 Ce chapitre couvre la configuration initiale indispensable pour sécuriser l'accès et identifier clairement chaque équipement dans le lab.
 
