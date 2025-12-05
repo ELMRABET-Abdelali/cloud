@@ -1,4 +1,4 @@
-# 🔀 Lab jeremysitlab — Chapitre 4 : Rapid Spanning Tree (Rapid PVST+) et Sécurité des Ports
+# Chapitre 4 : Rapid Spanning Tree (Rapid PVST+) et Sécurité des Ports
 
 Ce chapitre active Rapid PVST+ sur tous les commutateurs d'accès et de distribution, aligne l’élection du Root Bridge STP avec les routeurs HSRP actifs par VLAN, puis sécurise les ports d’accès avec PortFast et BPDU Guard.
 
