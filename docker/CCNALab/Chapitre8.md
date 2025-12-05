@@ -1,4 +1,4 @@
-# 🧭 Lab jeremysitlab — Chapitre 8 : Préparation et Routage IPv6
+# Chapitre 8 : Préparation et Routage IPv6
 
 Ce chapitre active le routage IPv6 et configure les adresses IPv6 sur R1, CSW1 et CSW2, puis ajoute deux routes par défaut IPv6 (récursive et entièrement spécifiée/floating).
 
