@@ -107,20 +107,46 @@ systemctl status containerd --no-pager
 
 ## Chapitre 3 – Ouverture des ports Oracle Cloud (réseau)
 
-Dans la **console Oracle Cloud**, pour le **subnet** (ou la security list) associé à tes 3 VMs, ouvre les ports **ingress** suivants :
+Dans la **console Oracle Cloud**, tu vas créer des règles **ingress** très précises.
 
-- **SSH** : TCP 22 (déjà ouvert normalement).
-- **Kubernetes API** (master) : TCP 6443.
-- **Etcd / kubelet (interne)** :
-  - TCP 2379–2380, 10250–10259, 30000–32767 (NodePort range).
-- **NFS** (master vers workers) :
-  - TCP/UDP 111, 2049, 2000–2050 (ports dynamiques RPC – à ajuster selon ta conf).
-- **NodePort applicatifs** :
-  - Pour WordPress : ex. TCP 30081.
-  - Pour phpMyAdmin : ex. TCP 30082.
+Nous allons **choisir pour toi** les ports nécessaires pour que **tout fonctionne**. Ensuite tu pourras expliquer aux étudiants qu’ils peuvent changer les valeurs s’ils maîtrisent mieux.
 
-> **Recommandation :**
-> - Limite l’accès **SSH** et **NodePort** à ton IP publique si possible.
+### 3.1 – Règles TCP à ouvrir
+
+> **À configurer dans Oracle Cloud : Security List / NSG (TCP)**
+
+Copie **la ligne complète** ci‑dessous dans l’interface (en adaptant seulement le CIDR source si besoin) :
+
+```text
+TCP : 22,80,443,3389,6443,2379-2380,10250-10252,30000-32767,2049
+```
+
+**Explication rapide :**
+- `22` : SSH (accès PuTTY aux 3 VMs).
+- `80,443` : HTTP/HTTPS pour WordPress/phpMyAdmin.
+- `3389` : RDP si tu fais un TP graphique plus tard.
+- `6443` : API server Kubernetes (communication `kubeadm join`, `kubectl`).
+- `2379-2380` : etcd (stockage interne du control plane).
+- `10250-10252` : kubelet, scheduler, controller-manager.
+- `30000-32767` : plage **NodePort** Kubernetes (WordPress et phpMyAdmin seront dedans).
+- `2049` : NFS (serveur de fichiers sur le master).
+
+### 3.2 – Règles UDP à ouvrir
+
+> **À configurer dans Oracle Cloud : Security List / NSG (UDP)**
+
+```text
+UDP : 8285,8472
+```
+
+**Explication rapide :**
+- `8285,8472` : ports utilisés par **Flannel (CNI)** pour le réseau des Pods.
+
+> Si un jour tu utilises un autre CNI (Calico, Weave…), tu pourras ajouter :
+> - Calico : `179/udp`
+> - Weave : `6783/tcp`, `6783-6784/udp`
+
+Garde ce bloc tel quel pour ce projet, il correspond à la configuration exacte que nous utilisons dans le reste du TP.
 
 ---
 
