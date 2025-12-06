@@ -25,20 +25,46 @@
 
 ## Chapitre 1 – Préparation des machines (master, worker1, worker2)
 
-### 1.1 – Mise à jour système et outils de base
+**Objectif du chapitre :** avoir 3 machines **propres, à jour**, avec les réglages minimum pour installer Docker et Kubernetes.
+
+### 1.1 – Passer en super‑utilisateur (root)
 
 > **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+Ici on passe en **root** pour ne pas écrire `sudo` devant chaque commande.
 
 ```bash
 sudo su
+```
+
+Tu dois voir ton prompt changer (par exemple `root@master:~#`).
+
+### 1.2 – Mise à jour du système
+
+> **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+On met à jour la **liste des paquets** puis on applique les mises à jour de sécurité.
+
+```bash
 apt update
 apt upgrade -y
+```
+
+### 1.3 – Installation des outils de base
+
+> **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+Ces paquets servent pour télécharger, éditer des fichiers et gérer les certificats.
+
+```bash
 apt install -y curl wget vim net-tools gnupg lsb-release ca-certificates
 ```
 
-### 1.2 – Désactivation de swap (requis pour kubeadm)
+### 1.4 – Désactivation de swap (requis pour kubeadm)
 
 > **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+Kubernetes (kubeadm) **refuse de s’installer** si le **swap** est activé. On le coupe maintenant et de façon permanente.
 
 ```bash
 swapoff -a
@@ -51,49 +77,98 @@ Vérifie qu’il n’y a plus de swap :
 free -h
 ```
 
+La colonne `Swap` doit être à `0B`.
+
 ---
 
 ## Chapitre 2 – Installation de Docker (runtime + daemon + compose)
 
-### 2.1 – Installation Docker CE
+**Objectif du chapitre :** installer **Docker CE** (moteur de conteneurs) et **Docker Compose**, qui serviront ensuite comme runtime pour Kubernetes.
+
+### 2.1 – Préparer les paquets nécessaires
 
 > **Sur les 3 machines : `master`, `worker1`, `worker2`**
 
+On s’assure que la liste des paquets est à jour et que les outils nécessaires pour ajouter le dépôt Docker sont installés.
+
 ```bash
-sudo su
 apt-get update
 apt-get install -y \
   ca-certificates \
   curl \
   gnupg
+```
 
+- `ca-certificates` : gère les certificats pour les connexions HTTPS.
+- `curl` : télécharge des fichiers depuis Internet.
+- `gnupg` : gère les clés GPG (pour vérifier la signature du dépôt Docker).
+
+### 2.2 – Ajouter la clé GPG officielle de Docker
+
+> **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+Ici on crée un dossier pour les clés APT puis on ajoute la **clé GPG Docker**. Sans cette clé, APT ne fera pas confiance au dépôt Docker.
+
+```bash
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 chmod a+r /etc/apt/keyrings/docker.gpg
+```
 
+### 2.3 – Ajouter le dépôt Docker pour ton architecture (AMD64)
+
+> **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+On détecte l’architecture (`ARCH`), on lit la version d’Ubuntu, puis on ajoute le dépôt officiel Docker dans APT.
+
+```bash
 ARCH=$(dpkg --print-architecture)
 . /etc/os-release
 echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $VERSION_CODENAME stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
 
+Maintenant, APT connaît le dépôt Docker.
+
+### 2.4 – Installer Docker CE + Docker Compose plugin
+
+> **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+On met à jour la liste des paquets (pour inclure le dépôt Docker) puis on installe Docker et ses composants.
+
+```bash
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
 
+- `docker-ce` : moteur Docker.
+- `docker-ce-cli` : commandes `docker`.
+- `containerd.io` : runtime de conteneurs utilisé par Docker/Kubernetes.
+- `docker-buildx-plugin` : build avancé.
+- `docker-compose-plugin` : commande `docker compose`.
+
+### 2.5 – Activer et démarrer le service Docker
+
+> **Sur les 3 machines : `master`, `worker1`, `worker2`**
+
+```bash
 systemctl enable docker
 systemctl start docker
 ```
 
-Teste Docker :
+Vérifie que Docker fonctionne :
 
 ```bash
 docker run --rm hello-world
 ```
 
-### 2.2 – Configuration de Docker pour Kubernetes
+Si tu vois un message de bienvenue "Hello from Docker!", l’installation est correcte.
+
+### 2.6 – Configuration de Docker/containerd pour Kubernetes
 
 > **Sur les 3 machines : `master`, `worker1`, `worker2`**
 
-On configure le runtime `systemd` pour `containerd` :
+Kubernetes recommande d’utiliser `systemd` comme gestionnaire de groupes de contrôle (cgroups). On va donc générer la configuration par défaut de `containerd` et activer `SystemdCgroup`.
 
 ```bash
 mkdir -p /etc/containerd
@@ -102,6 +177,8 @@ sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.to
 systemctl restart containerd
 systemctl status containerd --no-pager
 ```
+
+Tu dois voir le service `containerd` en **active (running)**.
 
 ---
 
